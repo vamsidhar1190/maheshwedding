@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a120c" />
+  <title>A Special Surprise For You ❤️</title>
+  <meta name="description" content="A wedding surprise from your crazy gang." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Ambient effects: petals, sparkles, hearts, confetti -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Music control -->
+  <button id="musicBtn" class="music-btn" type="button" aria-label="Play music" aria-pressed="false">
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="music-btn__label">Music</span>
+  </button>
+
+  <!-- Section navigation -->
+  <nav id="dots" class="dots" aria-label="Sections"></nav>
+
+  <main id="stage">
+
+    <!-- ============ STEP 1 · WELCOME ============ -->
+    <section class="scene scene--welcome is-active" data-scene="welcome" data-label="Welcome">
+      <div class="welcome">
+        <p class="eyebrow">A little something from all of us</p>
+        <h1 class="welcome__title">
+          <span class="script" id="welcomeHeading">Navya &amp; Mahesh</span>
+          <span class="welcome__sub" id="welcomeSub">Your crazy gang has a special surprise for&nbsp;you&nbsp;two&nbsp;❤️</span>
+        </h1>
+
+        <button class="gift" id="gift" type="button" aria-label="Open the gift">
+          <span class="gift__glow"></span>
+          <span class="gift__beam"></span>
+          <span class="gift__lid"><span class="gift__bow"><i></i><i></i><b></b></span></span>
+          <span class="gift__box"></span>
+          <span class="gift__shadow"></span>
+        </button>
+
+        <button class="btn btn--gold" id="startBtn" type="button">
+          <span>Start Your Surprise</span>
+        </button>
+
+        <label class="toggle">
+          <input type="checkbox" id="musicPref" checked />
+          <span class="toggle__track"><span class="toggle__dot"></span></span>
+          <span>Play soft music</span>
+        </label>
+      </div>
+      <button class="studio-open" id="studioOpen" type="button" hidden>✎ Customize photos &amp; messages</button>
+    </section>
+
+    <!-- ============ STEP 2 · FRIENDSHIP MEMORIES ============ -->
+    <section class="scene scene--memories" data-scene="memories" data-label="Memories">
+      <header class="scene-head">
+        <p class="eyebrow">Chapter One · The Memories</p>
+        <h2 class="script scene-head__title">From crazy moments to unforgettable memories...</h2>
+        <p class="lede">Every trip, every plate of biryani, every blurry selfie — it all led here.</p>
+      </header>
+      <div class="scrapbook" id="scrapbook"></div>
+      <div class="scene-foot">
+        <button class="btn btn--gold" type="button" data-goto="gang"><span>Meet the Crazy Gang</span></button>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3 · OUR CRAZY GANG ============ -->
+    <section class="scene scene--gang" data-scene="gang" data-label="The Gang">
+      <header class="scene-head">
+        <p class="eyebrow">Chapter Two · Our Crazy Gang</p>
+        <h2 class="script scene-head__title">Each of us has something to tell you</h2>
+        <p class="lede">Tap a card to open a personal wish.</p>
+      </header>
+      <div class="gang-grid" id="gangGrid"></div>
+      <div class="scene-foot">
+        <button class="btn btn--gold" type="button" data-goto="letter"><span>There's a secret letter…</span></button>
+      </div>
+    </section>
+
+    <!-- ============ STEP 4 · SECRET LETTER ============ -->
+    <section class="scene scene--letter" data-scene="letter" data-label="Letter">
+      <header class="scene-head">
+        <p class="eyebrow">Chapter Three · Sealed With Love</p>
+        <h2 class="script scene-head__title">A letter from all of us</h2>
+        <p class="lede" id="envelopeHint">Tap the golden seal to open it.</p>
+      </header>
+
+      <div class="envelope-stage">
+        <button class="envelope" id="envelope" type="button" aria-label="Open the envelope">
+          <span class="env__back"></span>
+          <span class="env__paper"><span class="env__paper-lines"></span></span>
+          <span class="env__front"></span>
+          <span class="env__flap"></span>
+          <span class="env__seal"><span class="env__seal-inner">♥</span></span>
+        </button>
+
+        <article class="letter" id="letter" aria-live="polite">
+          <p class="letter__greeting script" id="letterGreeting"></p>
+          <div class="letter__body" id="letterBody"></div>
+          <p class="letter__sign" id="letterSign"></p>
+          <p class="letter__from script" id="letterFrom"></p>
+        </article>
+      </div>
+
+      <div class="scene-foot scene-foot--hidden" id="letterFoot">
+        <p class="whisper">Ready for the biggest surprise of all?</p>
+        <button class="btn btn--gold btn--glow" type="button" data-goto="reveal"><span>I'm Ready ✨</span></button>
+      </div>
+    </section>
+
+    <!-- ============ STEP 5 + 6 · GRAND REVEAL & WEDDING GALLERY ============ -->
+    <section class="scene scene--reveal" data-scene="reveal" data-label="The Reveal">
+      <div class="reveal-intro" id="revealIntro">
+        <p class="reveal-intro__line" id="introLine">The moment we've all been waiting for…</p>
+        <div class="countdown" id="countdown" aria-live="assertive">
+          <svg class="countdown__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="90" class="ring-bg" />
+            <circle cx="100" cy="100" r="90" class="ring-fg" id="ringFg" />
+          </svg>
+          <span class="countdown__num" id="countNum">5</span>
+        </div>
+      </div>
+
+      <div class="theatre" id="theatre">
+        <div class="spotlight" aria-hidden="true"></div>
+        <div class="valance" aria-hidden="true"></div>
+        <div class="curtain curtain--left" aria-hidden="true"><span class="tassel"></span></div>
+        <div class="curtain curtain--right" aria-hidden="true"><span class="tassel"></span></div>
+      </div>
+
+      <!-- Wedding content is injected by JavaScript only at the moment of the reveal -->
+      <div class="wedding" id="wedding" hidden>
+        <div class="wedding__hero">
+          <p class="eyebrow eyebrow--light">The Grand Reveal</p>
+          <h2 class="script wedding__title" id="revealTitle"></h2>
+          <figure class="hero-frame" id="heroFrame"></figure>
+          <p class="wedding__names script" id="revealNames"></p>
+          <h3 class="wedding__headline" id="revealHeadline"></h3>
+          <div class="wedding__message" id="revealMessage"></div>
+          <p class="scroll-cue" aria-hidden="true">Scroll for your wedding album <span>⌄</span></p>
+        </div>
+        <div class="album">
+          <p class="eyebrow eyebrow--light">The Wedding Album</p>
+          <div class="album__grid" id="albumGrid"></div>
+        </div>
+        <div class="scene-foot">
+          <button class="btn btn--gold" type="button" data-goto="finale"><span>One last thing ❤️</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 7 · FINAL CELEBRATION ============ -->
+    <section class="scene scene--finale" data-scene="finale" data-label="Celebrate">
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__row" id="marqueeA"></div>
+        <div class="marquee__row marquee__row--rev" id="marqueeB"></div>
+      </div>
+      <div class="finale-card">
+        <p class="eyebrow">Forever starts now</p>
+        <div class="finale-couple" id="finaleCouple"></div>
+        <p class="finale-names script" id="finaleNames"></p>
+                <h2 class="script finale-card__title">With love, from your gang</h2>
+        <div class="gang-ring" id="gangRing"></div>
+        <p class="lede">Wish you a happy married life, Navya &amp; Mahesh! Thank you for every memory — here's to a lifetime of new ones, together, always.</p>
+        <div class="finale-actions">
+          <button class="btn btn--gold" id="replayBtn" type="button"><span>↺ Replay the Surprise</span></button>
+          <button class="btn btn--ghost" id="confettiBtn" type="button"><span>🎉 More Confetti</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox__close" id="lbClose" type="button" aria-label="Close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" type="button" aria-label="Previous photo">‹</button>
+    <div class="lightbox__viewport" id="lbViewport">
+      <img id="lbImg" alt="" />
+    </div>
+    <button class="lightbox__nav lightbox__nav--next" id="lbNext" type="button" aria-label="Next photo">›</button>
+    <p class="lightbox__caption" id="lbCaption"></p>
+    <p class="lightbox__hint">Tap photo to zoom · swipe or use arrows</p>
+  </div>
+
+  <!-- Photo Studio (opened with ?edit in the URL) -->
+  <div class="studio" id="studio" role="dialog" aria-modal="true" aria-label="Photo studio" hidden>
+    <div class="studio__panel">
+      <header class="studio__head">
+        <div>
+          <h2>Photo Studio</h2>
+          <p>Upload, reorder and caption photos. Wedding photos stay hidden until the grand reveal.</p>
+        </div>
+        <button class="studio__close" id="studioClose" type="button" aria-label="Close">×</button>
+      </header>
+      <div class="studio__tabs" role="tablist">
+        <button role="tab" class="is-on" data-tab="memories" type="button">Friends Group</button>
+        <button role="tab" data-tab="gang" type="button">Individual Friends</button>
+        <button role="tab" data-tab="wedding" type="button">Bride &amp; Groom 🔒</button>
+        <button role="tab" data-tab="words" type="button">Messages &amp; Music</button>
+      </div>
+      <div class="studio__body" id="studioBody"></div>
+      <footer class="studio__foot">
+        <span class="studio__status" id="studioStatus"></span>
+        <button class="sbtn sbtn--plain" id="studioReset" type="button">Reset to original</button>
+        <button class="sbtn sbtn--plain" id="studioExport" type="button">Download data.js</button>
+        <button class="sbtn" id="studioSave" type="button">Save &amp; preview</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/studio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
